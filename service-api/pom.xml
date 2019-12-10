@@ -11,6 +11,9 @@
 
     <artifactId>service-api</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>service-user-api</module>
+    </modules>
 
     <dependencies>
         <!--通用的common-->
