@@ -6,9 +6,7 @@ import com.jxh.pojo.User;
 import com.jxh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
@@ -96,6 +94,23 @@ public class UserController {
             return new Result(true,StatusCode.OK,"登录成功",user);
         }
         return new Result(false,StatusCode.LOGINERROR,"账号或者密码错误");
+    }
+
+    /***
+     * 获取session中信息(用户所有信息)
+     */
+    @RequestMapping("/getSession")
+    public Result getSession(HttpServletRequest request){
+        try {
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
+            if (user!=null){
+                return new Result(true,StatusCode.OK,"session获取信息成功",user);
+            }
+            return new Result(false,StatusCode.ERROR,"session中没有信息");
+        } catch (Exception e) {
+            return new Result(false,StatusCode.ERROR,"服务器出现故障!");
+        }
     }
 
     /***
