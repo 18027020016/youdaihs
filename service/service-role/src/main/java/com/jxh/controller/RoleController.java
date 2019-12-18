@@ -69,7 +69,7 @@ public class RoleController {
      * @return
      */
     @DeleteMapping(value = "/{id}" )
-    public Result delete(@PathVariable Integer id){
+    public Result delete(@PathVariable String id){
         //调用RoleService实现根据主键删除
         roleService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
@@ -82,9 +82,9 @@ public class RoleController {
      * @return
      */
     @PutMapping(value="/{id}")
-    public Result update(@RequestBody  Role role,@PathVariable Integer id){
+    public Result update(@RequestBody  Role role,@PathVariable String id){
         //设置主键值
-        role.setRoleid(id);
+        role.setRolename(id);
         //调用RoleService实现修改Role
         roleService.update(role);
         return new Result(true,StatusCode.OK,"修改成功");
@@ -108,16 +108,10 @@ public class RoleController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result<Role> findById(@PathVariable Integer id){
+    public Result<Role> findById(@PathVariable String id){
         //调用RoleService实现根据主键查询Role
-        try {
-            Role role = roleService.findById(id);
-            return new Result<Role>(true,StatusCode.OK,"查询成功",role);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result<Role>(false,StatusCode.ERROR,"查询成功");
-        }
-
+        Role role = roleService.findById(id);
+        return new Result<Role>(true,StatusCode.OK,"查询成功",role);
     }
 
     /***

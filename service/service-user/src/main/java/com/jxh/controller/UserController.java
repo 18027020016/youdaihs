@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /****
@@ -84,6 +85,9 @@ public class UserController {
         //传入密码加密
         String pwd = MD5Utils.md5(password);
         if (user!=null && pwd.equalsIgnoreCase(user.getPassword())){
+            //登录成功修改最后登录时间
+            user.setLastLoginTime(new Date());
+            userService.update(user);
             //登录成功后将用户信息存入session
             HttpSession session = request.getSession();
             session.setAttribute("user",user);

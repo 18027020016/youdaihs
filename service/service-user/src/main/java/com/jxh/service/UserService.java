@@ -79,4 +79,5 @@ public interface UserService {
      * @param repassword:新密码
      */
     void editPassword(String username, String repassword);
+
 }

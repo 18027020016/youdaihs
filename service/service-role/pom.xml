@@ -3,24 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>youdaihs</artifactId>
+        <artifactId>service</artifactId>
         <groupId>com.jxh</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>service-role</artifactId>
 
-    <modules>
-        <module>service-user</module>
-        <module>service-role</module>
-    </modules>
-
+    <!--依赖-->
     <dependencies>
         <dependency>
             <groupId>com.jxh</groupId>
-            <artifactId>common-db</artifactId>
+            <artifactId>service-role-api</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
