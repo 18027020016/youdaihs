@@ -1,5 +1,6 @@
 package com.jxh.dao;
 import com.jxh.pojo.User;
+import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 
 /****

@@ -140,7 +140,11 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Role findById(Integer id){
-        return  roleMapper.selectByPrimaryKey(id);
+        if (id!=null&&id==2){
+            return  roleMapper.selectByPrimaryKey(id);
+        }else {
+            throw new RuntimeException("id错误");
+        }
     }
 
     /**

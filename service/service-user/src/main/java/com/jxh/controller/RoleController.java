@@ -110,8 +110,14 @@ public class RoleController {
     @GetMapping("/{id}")
     public Result<Role> findById(@PathVariable Integer id){
         //调用RoleService实现根据主键查询Role
-        Role role = roleService.findById(id);
-        return new Result<Role>(true,StatusCode.OK,"查询成功",role);
+        try {
+            Role role = roleService.findById(id);
+            return new Result<Role>(true,StatusCode.OK,"查询成功",role);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<Role>(false,StatusCode.ERROR,"查询成功");
+        }
+
     }
 
     /***

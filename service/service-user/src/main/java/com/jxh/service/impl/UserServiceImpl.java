@@ -3,6 +3,7 @@ package com.jxh.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.jxh.dao.UserMapper;
+import com.jxh.entity.MD5Utils;
 import com.jxh.pojo.User;
 import com.jxh.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.List;
 
 /****
@@ -167,21 +169,26 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 删除
-     * @param id
+     * 根据ID删除(真实删除)
+     * @param id:用户名
      */
     @Override
     public void delete(String id){
-        userMapper.deleteByPrimaryKey(id);
+        if (id!=null) {
+            userMapper.deleteByPrimaryKey(id);
+        }
     }
 
     /**
-     * 修改User
+     * 根据id修改User
      * @param user
      */
     @Override
     public void update(User user){
-        userMapper.updateByPrimaryKey(user);
+        if (user!=null){
+            user.setUpdated(new Date());
+            userMapper.updateByPrimaryKeySelective(user);
+        }
     }
 
     /**
@@ -190,7 +197,15 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void add(User user){
-        userMapper.insert(user);
+        if (user!=null){
+            //密码加密
+            user.setPassword(MD5Utils.md5(user.getPassword()));
+            //创建时间
+            user.setCreated(new Date());
+            //使用状态(注册默认为正常)
+            user.setStatus("1");
+            userMapper.insert(user);
+        }
     }
 
     /**
@@ -200,7 +215,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public User findById(String id){
-        return  userMapper.selectByPrimaryKey(id);
+        if (id!=null){
+            return  userMapper.selectByPrimaryKey(id);
+        }
+        throw new RuntimeException("");
     }
 
     /**
@@ -210,5 +228,32 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAll() {
         return userMapper.selectAll();
+    }
+
+    /***
+     * 根据id删除用户信息(物理删除)
+     * @param id:用户名
+     */
+    @Override
+    public void PhysicalDelete(String id) {
+        if (id != null) {
+            User user = userMapper.selectByPrimaryKey(id);
+            if (user != null) {
+                user.setStatus("0");
+                userMapper.updateByPrimaryKeySelective(user);
+            }
+        }
+    }
+
+    /***
+     * 登录用户修改密码
+     * @param username:用户名
+     * @param repassword:新密码
+     */
+    @Override
+    public void editPassword(String username, String repassword) {
+        User user = userMapper.selectByPrimaryKey(username);
+        user.setPassword(MD5Utils.md5(repassword));
+        userMapper.updateByPrimaryKeySelective(user);
     }
 }

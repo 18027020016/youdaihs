@@ -28,7 +28,7 @@ public class User implements Serializable{
 	private String email;//注册邮箱
 
     @Column(name = "IDcard")
-	private Integer IDcard;//身份证号
+	private String IDcard;//身份证号
 
     @Column(name = "created")
 	private Date created;//创建时间
@@ -70,7 +70,7 @@ public class User implements Serializable{
 	private Integer points;//积分
 
     @Column(name = "birthday")
-	private Date birthday;//出生年月日
+	private String birthday;//出生年月日
 
     @Column(name = "last_login_time")
 	private Date lastLoginTime;//最后登录时间
@@ -117,12 +117,12 @@ public class User implements Serializable{
 		this.email = email;
 	}
 	//get方法
-	public Integer getIDcard() {
+	public String getIDcard() {
 		return IDcard;
 	}
 
 	//set方法
-	public void setIDcard(Integer IDcard) {
+	public void setIDcard(String IDcard) {
 		this.IDcard = IDcard;
 	}
 	//get方法
@@ -243,12 +243,12 @@ public class User implements Serializable{
 		this.points = points;
 	}
 	//get方法
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
 	//set方法
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	//get方法
@@ -270,5 +270,30 @@ public class User implements Serializable{
 		this.manager = manager;
 	}
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", IDcard='" + IDcard + '\'' +
+                ", created=" + created +
+                ", updated=" + updated +
+                ", sourceType='" + sourceType + '\'' +
+                ", nickName='" + nickName + '\'' +
+                ", name='" + name + '\'' +
+                ", status='" + status + '\'' +
+                ", headPic='" + headPic + '\'' +
+                ", qq='" + qq + '\'' +
+                ", isMobileCheck='" + isMobileCheck + '\'' +
+                ", isEmailCheck='" + isEmailCheck + '\'' +
+                ", sex='" + sex + '\'' +
+                ", userLevel=" + userLevel +
+                ", points=" + points +
+                ", birthday='" + birthday + '\'' +
+                ", lastLoginTime=" + lastLoginTime +
+                ", manager='" + manager + '\'' +
+                '}';
+    }
 }

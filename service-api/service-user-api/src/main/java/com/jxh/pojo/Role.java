@@ -89,5 +89,4 @@ public class Role implements Serializable{
 		this.status = status;
 	}
 
-
 }

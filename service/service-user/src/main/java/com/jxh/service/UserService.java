@@ -66,4 +66,17 @@ public interface UserService {
      * @return
      */
     List<User> findAll();
+
+    /***
+     * 根据id删除用户信息(物理删除)
+     * @param id:用户名
+     */
+    void PhysicalDelete(String id);
+
+    /***
+     * 登录用户修改密码
+     * @param username:用户名
+     * @param repassword:新密码
+     */
+    void editPassword(String username, String repassword);
 }
