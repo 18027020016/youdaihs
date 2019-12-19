@@ -121,7 +121,12 @@ public class RoleController {
     @GetMapping
     public Result<List<Role>> findAll(){
         //调用RoleService实现查询所有Role
-        List<Role> list = roleService.findAll();
-        return new Result<List<Role>>(true, StatusCode.OK,"查询成功",list) ;
+        try {
+            List<Role> list = roleService.findAll();
+            return new Result<List<Role>>(true, StatusCode.OK,"查询成功",list) ;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result<List<Role>>(true, StatusCode.OK,"查询失败") ;
+        }
     }
 }
